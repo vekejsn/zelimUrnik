@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
+<title>Želim FRI Urnik</title>
+<meta name="description" content="Iskalica za urnik na Fakulteti za računalništvo in informatiko.">
+<style>
+body{
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.sidebar {
+  padding:1vw;
+  padding-top: 0rem;
+  background-color: #B4172D;
+  color: white;
+  width: 18vw;
+  height:100vh;
+  border-right: 5px solid white;
+}
+.sidebar hr{
+  border: 1px solid white;
+}
+.inputgroup{
+  display: flex;
+  flex-direction: column;
+}
+.sidebar input {
+  font-family: 'Nunito', sans-serif;
+  border: none;
+  margin: none;
+  margin-bottom: 4px;
+  background-color: #961327;
+  color: white;
+  font-weight: bold;
+  padding: none;
+  padding-top:.4rem;
+  padding-bottom:.4rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+.sidebar input::placeholder{
+  color: whitesmoke;
+}
+.sidebar button {
+  font-family: 'Nunito', sans-serif;
+  border: none;
+  background-color: #961327;
+  color:white;
+  padding: .5rem;
+  align-self:center;
+  cursor: pointer;
+  margin-bottom: 2px;
+  transition: 0.1s;
+  width: 100%;
+}
+.inputgroup div{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.sidebar button:hover {
+  background-color: #da1835;
+}
+iframe {
+  display:block;
+  position: absolute;
+  left: 20vw;
+  width: 80vw;
+  height: 100%;
+  border: none;
+}
+h1{
+  line-height: 0.5em;
+}
+h1 i {
+  line-height: 0.5em;
+}
+img {
+  width: 10vw;
+}
+@media only screen and (max-width: 1200px) {
+  body{
+    flex-direction: column;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  .sidebar {
+    width: 98vw !important;
+    height: auto !important;
+    overflow-y: hidden;
+    padding-bottom: 0;
+  }
+  iframe {
+    overflow-y: hidden;
+    width: 100vw !important;
+    height: 100vh;
+    left: 0;
+  }
+  h3 {
+    font-size: 1em;
+  }
+  img {
+    visibility: collapse;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="sidebar">
+    <h1><i class="fa fa-calendar" aria-hidden="true"></i> zelimUrnik.xyz</h1>
+    <hr>
+    <h3>Iščeš svoj urnik, a ga ne najdeš?<br>Spodaj vnesi svojo vpisno številko in preusmerjen boš na personaliziran urnik.</h3>
+    <hr>
+    <div class="inputgroup">
+      <input type="text" id="vpisna" name="vpisna" placeholder="Vnesi vpisno...">
+      <div>
+        <button onClick="redirect();">Odpelji me na urnik</button>
+        <button onClick="openNew();">Odpri urnik v novem oknu</button>
+      </div>
+    </div>
+    <hr>
+    <img src="fri.png"/>
+  </div>
+  <div class="body">
+    <iframe src="https://urnik.fri.uni-lj.si" title="description" id="if"></iframe>
+  </div>
+</body>
+<script>
+  function redirect() {
+    var k = document.getElementById("vpisna").value;
+    if (k.length===0) {
+      document.getElementById("if").src="https://urnik.fri.uni-lj.si";
+      return;
+    }
+    const domena = "https://urnik.fri.uni-lj.si/timetable/fri-2020_2021-letni-1-9/allocations?student=";
+    document.getElementById("if").src = domena + k;
+  }
+  function openNew() {
+    var k = document.getElementById("vpisna").value;
+    if (k.length===0) {
+      return;
+    }
+    const domena = "https://urnik.fri.uni-lj.si/timetable/fri-2020_2021-letni-1-9/allocations?student=";
+    var tab = window.open(domena+k, '_blank');
+    tab.focus();
+  }
+</script>
+</html>
