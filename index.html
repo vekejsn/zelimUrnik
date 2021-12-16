@@ -84,6 +84,9 @@ h1 i {
 img {
   width: 10vw;
 }
+a {
+  color: white;
+}
 @media only screen and (max-width: 1200px) {
   body{
     flex-direction: column;
@@ -120,34 +123,38 @@ img {
     <div class="inputgroup">
       <input type="text" id="vpisna" name="vpisna" placeholder="Vnesi vpisno...">
       <div>
-        <button onClick="redirect();">Odpelji me na urnik</button>
-        <button onClick="openNew();">Odpri urnik v novem oknu</button>
+        <button onClick="redirect()">Odpelji me na urnik</button>
+        <button onClick="openNew()">Odpri urnik v novem oknu</button>
       </div>
     </div>
     <hr>
     <img src="fri.png"/>
+    <hr>
+    <span><a href="https://github.com/vekejsn/zelimUrnik" title="GitHub repository url">Source code</a></span>
   </div>
   <div class="body">
     <iframe src="https://urnik.fri.uni-lj.si" title="description" id="if"></iframe>
   </div>
 </body>
 <script>
+  const baseurl = await fetch("https://urnik.fri.uni-lj.si/").then(r => r.url)
+
   function redirect() {
-    var k = document.getElementById("vpisna").value;
+    const k = document.getElementById("vpisna").value;
     if (k.length===0) {
       document.getElementById("if").src="https://urnik.fri.uni-lj.si";
       return;
     }
-    const domena = "https://urnik.fri.uni-lj.si/timetable/fri-2020_2021-letni-1-9/allocations?student=";
-    document.getElementById("if").src = domena + k;
+    const newSrc = `${baseurl}/allocations?student=${k}`
+    document.getElementById("if").src = newSrc;
   }
   function openNew() {
-    var k = document.getElementById("vpisna").value;
+    const k = document.getElementById("vpisna").value;
     if (k.length===0) {
       return;
     }
-    const domena = "https://urnik.fri.uni-lj.si/timetable/fri-2020_2021-letni-1-9/allocations?student=";
-    var tab = window.open(domena+k, '_blank');
+    const newSrc = `${baseurl}/allocations?student=${k}`
+    var tab = window.open(newSrc, '_blank');
     tab.focus();
   }
 </script>
