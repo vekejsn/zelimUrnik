@@ -132,7 +132,12 @@ img {
   </div>
 </body>
 <script>
-  const baseurl = await fetch("https://urnik.fri.uni-lj.si/").then(r => r.url)
+  let baseurl;
+  getUrl();
+  
+  async function getUrl() {
+    baseurl = await fetch("https://urnik.fri.uni-lj.si/").then(r => r.url)
+  }
 
   function redirect() {
     const k = document.getElementById("vpisna").value;
